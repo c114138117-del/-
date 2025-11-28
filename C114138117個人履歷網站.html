@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人簡介</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        :root {
+            --primary-color: #3f51b5; /* Indigo */
+            --secondary-color: #ffc107; /* Amber */
+            --tertiary-color: #f44336; /* Red */
+            --background-color: #f5f5f5; /* Light Grey */
+            --text-color: #212121; /* Dark Grey */
+            --light-text-color: #ffffff;
+            --font-family: 'Roboto', sans-serif;
+            --skill-font-size: 0.9em;
+            --line-height: 1.6;
+            --padding: 15px;
+            --margin: 10px;
+            --border-radius: 5px;
+            --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: var(--line-height);
+            padding: var(--padding);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .resume-container {
+            width: 100%;
+            max-width: 900px;
+            background-color: var(--light-text-color);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: var(--border-radius);
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            padding-bottom: var(--padding);
+            margin-bottom: var(--padding);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .header h1 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .contact-info {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 0.9em;
+        }
+
+        .contact-info li {
+            display: inline;
+        }
+
+        .contact-info a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        /* Skills Section */
+        .skills-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .skill-item {
+            background-color: var(--background-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: var(--skill-font-size);
+            border: 1px solid #ccc;
+        }
+
+        .skill-item:hover {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            cursor: default;
+        }
+
+        /* Progress Bar for Skills (Optional) */
+        .skill-progress-container {
+            margin-top: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            height: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--secondary-color);
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* Experience and Education Styling */
+        .experience-item, .education-item {
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .time-range {
+            font-size: 0.9em;
+            color: #757575;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .company-name, .school-name {
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 1.1em;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .job-title, .degree {
+            font-style: italic;
+            color: #424242;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 0.95em;
+            margin: 0;
+            padding-left: 10px;
+            border-left: 2px solid #ddd;
+        }
+
+        .description ul {
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            font-size: 0.8em;
+            color: #757575;
+            padding-top: var(--padding);
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="resume-container">
+        <header class="header">
+            <h1>林筠諼</h1>
+            <p class="job-title">高科金融系 (Department of Finance)</p>
+            <ul class="contact-info">
+                <li><a href="mailto:yunxuan316@gmail.com"><i class="fa fa-envelope"></i> yunxuan316@gmail.com</a></li>
+                <li><a href="tel:+886952326575"><i class="fa fa-phone"></i> +886 952-326-575</a></li>
+            </ul>
+        </header>
+
+        <section class="section summary-section">
+            <h2 class="section-title">簡介</h2>
+            <p class="description">
+                畢業於鳳山商工會計事務科，具備扎實的會計原理、文書處理和基礎財務知識。在爭鮮暑期工讀期間，培養了優秀的時間管理、顧客服務和團隊合作能力。
+            </p>
+        </section>
+
+        <section class="section skills-section">
+            <h2 class="section-title">專業證照</h2>
+            <div class="skills-list">
+                <div class="skill-item" data-level="95">
+                    會計資訊丙級
+                    <div class="skill-progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;" data-fill="95"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="90">
+                    電腦軟體乙級
+                    <div class="skill-progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;" data-fill="90"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="85">
+                    電腦軟體丙級
+                    <div class="skill-progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;" data-fill="85"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="80">
+                    門市服務丙級
+                    <div class="skill-progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;" data-fill="80"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="75">
+                    會計二級
+                    <div class="skill-progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;" data-fill="75"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="70">
+                    會計三級
+                    <div class="skill-progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;" data-fill="70"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section experience-section">
+            <h2 class="section-title">工作經歷</h2>
+            <div class="experience-item">
+                <span class="time-range">2025 年 6 月 - 2025 年 6 月</span>
+                <h3 class="company-name">夜市臨時工讀</h3>
+                <p class="job-title">工讀生</p>
+                <div class="description">
+                    <ul>
+                        <li>負責場地布置。</li>
+                        <li>協助撿圈圈。</li>
+                        <li>協助民眾操作手機。</li>
+                        <li>活動後場復。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="experience-item">
+                <span class="time-range">2025 年 7 月 - 2025 年 8 月</span>
+                <h3 class="company-name">爭鮮迴轉壽司</h3>
+                <p class="job-title">外場服務生</p>
+                <div class="description">
+                    <ul>
+                        <li>負責為顧客帶位、安排座位。</li>
+                        <li>點餐送單，並進行簡單的餐點製作。</li>
+                        <li>解決顧客問題。</li>
+                        <li>收桌整理及結帳作業。</li>
+                    </ul>
+                </div>

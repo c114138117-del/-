@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜謎遊戲</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .input-area input[type="text"] {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 60%;
+        }
+        .input-area button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .input-area button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            min-height: 40px; /* 確保結果區有足夠空間 */
+        }
+        .feedback {
+            font-size: 5em;
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+            display: inline-block;
+        }
+
+        /* 煙火動畫 (答對) */
+        @keyframes fireworks-pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.5); opacity: 1; color: orange; }
+            100% { transform: scale(0.8); opacity: 0; }
+        }
+        .fireworks {
+            animation-name: fireworks-pop;
+        }
+
+        /* 大便動畫 (答錯) */
+        @keyframes poop-shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px) rotate(-5deg); }
+            75% { transform: translateX(10px) rotate(5deg); }
+        }
+        .poop {
+            animation-name: poop-shake;
+            color: brown;
+            animation-iteration-count: 3; /* 搖晃三次 */
+        }
+        
+        /* 隱藏題目用的 CSS */
+        .hidden {
+            display: none;
+        }
+        .next-button {
+            padding: 8px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .next-button:hover {
+            background-color: #1e7e34;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>猜謎遊戲</h1>
+
+    <div class="quiz-container" id="quiz1">
+        <div class="question">Q1: 什麼東西有頭無身，有嘴無聲？</div>
+        <div class="input-area">
+            <input type="text" id="answer1" placeholder="請輸入答案">
+            <button onclick="checkAnswer(1, '硬幣')">送出</button>
+        </div>
+        <div class="result" id="result1"></div>
+    </div>
+
+    <div class="quiz-container hidden" id="quiz2">
+        <div class="question">Q2: 什麼東西看得見，卻摸不著？</div>
+        <div class="input-area">
+            <input type="text" id="answer2" placeholder="請輸入答案">
+            <button onclick="checkAnswer(2, '陽光')">送出</button>
+        </div>
+        <div class="result" id="result2"></div>
+    </div>
+
+    <div class="quiz-container hidden" id="quiz3">
+        <div class="question">Q3: 什麼東西永遠不會變老？</div>
+        <div class="input-area">
+            <input type="text" id="answer3" placeholder="請輸入答案">
+            <button onclick="checkAnswer(3, '照片')">送出</button>
+        </div>
+        <div class="result" id="result3"></div>
+    </div>
+
+    <div class="quiz-container hidden" id="gameOver">
+        <h2>恭喜！您完成了所有謎題！🎉</h2>
+    </div>
+
+
+    <script>
+        // 定義遊戲狀態：當前題目編號
+        let currentQuiz = 1;
+
+        /**
+         * 檢查答案並顯示結果和動畫
+         * @param {number} quizNum - 題目編號 (1, 2, 3)
+         * @param {string} correctAnswer - 正確答案
+         */
+        function checkAnswer(quizNum, correctAnswer) {
+            const inputElement = document.getElementById(`answer${quizNum}`);
+            const resultElement = document.getElementById(`result${quizNum}`);
+            const userAnswer = inputElement.value.trim().toLowerCase(); // 忽略大小寫和前後空白
+            const standardAnswer = correctAnswer.toLowerCase();
+            
+            // 清除之前的結果和動畫
+            resultElement.innerHTML = '';
+            
+            // 禁用輸入框和按鈕，防止重複提交
+            inputElement.disabled = true;
+            inputElement.nextElementSibling.disabled = true;
+
+            if (userAnswer === standardAnswer) {
+                // 答對：煙火 (🎆)
+                resultElement.innerHTML = `<span class="feedback fireworks">🎆</span><br>太棒了！答對了！`;
+                
+                // 顯示下一題按鈕或遊戲結束訊息
+                if (quizNum < 3) {
+                    const nextButton = document.createElement('button');
+                    nextButton.className = 'next-button';
+                    nextButton.textContent = '下一題';
+                    nextButton.onclick = () => showNextQuiz(quizNum + 1);
+                    resultElement.appendChild(nextButton);
+                } else {
+                    // 這是最後一題
+                    document.getElementById(`quiz${quizNum}`).classList.add('hidden');
+                    document.getElementById('gameOver').classList.remove('hidden');
+                }
+
+            } else {
+                // 答錯：大便 (💩)
+                resultElement.innerHTML = `<span class="feedback poop">💩</span><br>喔...答錯了。再試一次！`;
+                
+                // 重新啟用輸入框和按鈕
+                inputElement.disabled = false;
+                inputElement.nextElementSibling.disabled = false;
+            }
+        }
+
+        /**
+         * 顯示下一題
+         * @param {number} nextNum - 下一個題目編號
+         */
+        function showNextQuiz(nextNum) {
+            // 隱藏當前題目
+            document.getElementById(`quiz${currentQuiz}`).classList.add('hidden');
+            
+            // 顯示下一題
+            currentQuiz = nextNum;
+            document.getElementById(`quiz${currentQuiz}`).classList.remove('hidden');
+        }
+
+        // 初始化：確保只有第一題是顯示的
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // 在 HTML 中已設定好，此處無需額外操作，除非題目編號不從 1 開始。
+        });
+    </script>
+
+</body>
+</html>
